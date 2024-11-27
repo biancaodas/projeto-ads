@@ -1,9 +1,16 @@
 import { db } from "../db.js";
+export const getUsers = (req, res) => {
+  const nome = req.query.nome; // Recebe o nome a partir da query string
 
-export const getUsers = (_, res) => {
-  const q = "SELECT * FROM usuarios";
+  let q = "SELECT * FROM usuarios";
+  let values = [];
 
-  db.query(q, (err, data) => {
+  if (nome) {
+    q += " WHERE nome LIKE ?";
+    values.push(`%${nome}%`); // Adiciona o valor de pesquisa com o wildcard
+  }
+
+  db.query(q, values, (err, data) => {
     if (err) return res.json(err);
 
     return res.status(200).json(data);

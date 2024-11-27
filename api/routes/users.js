@@ -3,7 +3,8 @@ import { addUser, deleteUser, getUsers, updateUser } from "../controllers/user.j
 
 const router = express.Router()
 
-router.get("/", getUsers)
+// Backend - routes/user.js
+router.get("/", getUsers);  // Rota para obter usuários, agora com suporte a busca por nome
 
 router.post("/", addUser)
 
